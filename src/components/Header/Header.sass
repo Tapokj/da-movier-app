@@ -1,0 +1,72 @@
+.header, .list-header, .login-header, .header-actions, .right-panel
+  display: flex
+
+.header
+  justify-content: space-around
+  width: 100%
+  background-color: #fff
+  border-bottom: 1px solid #eeeeee
+  align-items: center
+  padding-top: 5px
+  padding-bottom: 8px
+
+  .text-header
+    h2
+      font-family: 'Kaushan Script', cursive
+      margin: 0
+
+  .header-actions
+    align-content: center
+    width: 70%
+    justify-content: space-between
+
+  .login-header
+    margin-left: 10%
+    justify-content: space-around
+    align-items: center
+
+    p
+      cursor: pointer
+      color: #51c3a5
+      margin:
+        top: 0
+        bottom: 0
+        left: 15px
+        right: 0
+
+    a
+      margin-left: 15px
+
+      &:hover
+        color: darken(#51c3a5, 10%)
+
+    .registration-button
+      border: 1px solid #51c3a5
+      color: #51c3a5
+      padding: 7px
+      border-radius: 10px
+      cursor: pointer
+
+      &:hover
+        border: 1px solid darken(#51c3a5, 10%)
+        color: darken(#51c3a5, 10%)
+
+
+  .search
+    i
+      font-size: 15px
+      color: darken(#eee, 10%)
+      position: relative
+      top: 8px
+
+  .list-header
+    justify-content: space-around
+    align-items: center
+    margin: 0
+    padding: 0
+    position: relative
+    list-style: none
+    width: 30%
+
+    p
+      margin: 0
