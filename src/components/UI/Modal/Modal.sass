@@ -1,0 +1,32 @@
+.modal-window 
+  position: fixed
+  width: 50%
+  z-index: 200
+  background-color: black
+  left: 25%
+  padding-top: 10px
+  top: 25%
+  background-color: white
+  transition: all 0.3s ease-out
+
+
+.content-modal
+  padding: 10px
+
+
+.modal-enter-active
+  opacity: 1
+  transition: all 0.3s ease-out
+  transform: scale(.8)
+
+
+.modal-exit-active
+  opacity: 0
+  transition: all 0.3s ease-out
+  transform: scale(0)
+
+
+@media (max-width: 650px)
+  .modal-window
+    width: 90%
+    left: 5%

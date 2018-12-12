@@ -1,4 +1,5 @@
-import app from 'firebase/app';
+import firebase from 'firebase/app';
+import 'firebase/database';
 import 'firebase/auth';
 
 const config = {
@@ -10,29 +11,11 @@ const config = {
    messagingSenderId: "940270834168"
  };
 
-class Firebase {
-  constructor(){
-    app.initializeApp(config);
-
-    this.auth = app.auth();
-  }
-
-  // -- Authentication API --
-
-  // Registration User
-  doRegistration = (email, password) => {
-    return this.auth.createUserWithEmailAndPassword(email, password)
-  };
-  // Sign In
-  doLogin = (email, password) => {
-    return this.auth.signInWithEmailAndPassword(email, password)
-  };
-  // Sign out
-  doSignOut = () => this.auth.signOut();
-  // Password Reset
-  doPasswordReset  =   email  => this.auth.sendPasswordResetEmail(email);
-  // Password Update
-  doPasswordUpdate = password => this.auth.updatePassowrd(password)
+if (!firebase.apps.length) {
+  firebase.initializeApp(config);
 }
 
-export default Firebase;
+const auth = firebase.auth();
+const db   = firebase.database()
+
+export { auth, db }

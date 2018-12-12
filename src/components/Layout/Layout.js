@@ -1,36 +1,42 @@
-import React, { Component } from 'react';
-//components
+import React  from 'react';
+// Components
 import Header from '../Header/Header';
 import Modal  from '../UI/Modal/Modal'
 import SignUp from '../auth/SignUp/SignUp';
-//hoc
-import Movierapper from '../../hoc/Movierapper';
-import { Route }   from 'react-router-dom';
 
-class Layout extends Component {
+import ErrorAlert   from '../ErrorAlert/ErrorAlert';
+import MobileMenu   from '../MobileMenu/MobileMenu';
+// hoc
+import Movierapper  from '../../hoc/Movierapper';
+// Redux & actions
+import { connect }  from 'react-redux';
+import * as actions from '../../store/actions'
 
-  state = {
-    loginModal: false
+const Layout = ({ onAuthModal, loginModal, children  }) =>  (
+  <Movierapper>
+    <Header clicked={onAuthModal}/>
+    <MobileMenu/>
+    <div className="content">
+      {/* Authentication Modal */}
+      <Modal modalClose={onAuthModal} show={loginModal}>
+        <SignUp/>
+      </Modal>
+      <ErrorAlert/>
+      {children}
+    </div>
+  </Movierapper>
+)
+
+const mapStateToProps = state => {
+  return {
+    loginModal : state.modal,
   }
-
-  loginModalHandler = () => {
-    this.setState({loginModal: !this.state.loginModal})
-  }
-
-  render() {
-    return (
-      <Movierapper>
-        <Header clicked={this.loginModalHandler}/>
-        <div className="content">
-          <Modal modalClose={this.loginModalHandler} show={this.state.loginModal}>
-            <SignUp/>
-          </Modal>
-          {this.props.children}
-        </div>
-      </Movierapper>
-    );
-  }
-
 }
 
-export default Layout;
+const mapDispatchToProps = dispatch => {
+  return {
+    onAuthModal : () => dispatch(actions.loginModalHandler())
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Layout);

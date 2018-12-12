@@ -1,0 +1,65 @@
+.col
+  margin-left: -20px
+
+
+.col input
+  border-radius: 15px
+  position: relative
+  top: 1px
+  font-family: 'Roboto', sans-serif
+
+
+.sign
+  display: flex
+  transition: all 0.2s ease-out
+
+
+.sign-in-enter-active
+  opacity: 1
+  transform: scale(0.9)
+
+
+.sign-in-exit-active
+  opacity: 0
+  transform: scale(0)
+
+
+.btn-login
+  position: relative
+  right: 10px
+  background-color: #fff
+  border: none
+  cursor: pointer
+  border-radius: 5px
+  color: #51c3a5
+
+
+.exit-line
+  display: block
+  background-color: #51c3a5
+  width: 5px
+  margin-right: 35px
+  cursor: pointer
+  border: none
+
+
+.mobile-login
+  display: none
+
+
+@media (max-width: 979px)
+
+  .computer-login
+    display: none
+
+
+  .mobile-login
+    display: flex
+
+
+  .mobile-login input
+    margin-top: 10px
+
+
+  .mobile-login button
+    margin-top: 5px

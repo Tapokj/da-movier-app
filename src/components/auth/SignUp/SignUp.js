@@ -1,18 +1,10 @@
 import React, { Component } from 'react';
 
-import { withFirebase }     from '../Firebase';
-import { withRouter }       from 'react-router-dom';
-import { connect }          from 'react-redux';
-
+// Redux & actions
+import { connect }  from 'react-redux';
+import * as actions from '../../../store/actions/index'
+// styles & CSS
 import './SignUp.sass';
-
-const INITIAL_STATE = {
-  username: '',
-  email: '',
-  passwordOne: '',
-  passwordTwo: '',
-  error: null,
-};
 
 class SignUp extends Component {
 
@@ -21,7 +13,6 @@ class SignUp extends Component {
     email       : '',
     passwordOne : '',
     passwordTwo : '',
-    error       : null
   }
 
   changeHandler = e => {
@@ -32,17 +23,13 @@ class SignUp extends Component {
     const { username, email, passwordOne } = this.state;
 
     e.preventDefault()
-    this.props.firebase.doRegistration(email, passwordOne)
-      .then(authUser => {
-        this.setState({...INITIAL_STATE})
-      })
-      .catch(error   => this.setState({ error }))
 
+    this.props.onRegister(email, passwordOne, username)
   }
 
 
   render() {
-    const { username, email, passwordOne, passwordTwo, error } = this.state;
+    const { username, email, passwordOne, passwordTwo} = this.state;
 
     const isInvalid = passwordOne !== passwordTwo || passwordOne === '' || email === '' || username === ''
 
@@ -52,7 +39,6 @@ class SignUp extends Component {
             <p>Регистрация аккаунта. Это займет буквально пару минут.</p>
           <form onSubmit={this.signUpHandler}>
             <div className='signup form-control-group'>
-              {error ? <div className='alert alert-danger'>{error.message}</div> : null}
               <label htmlFor="username">Имя пользователя: </label>
               <input
                 onChange={this.changeHandler}
@@ -91,7 +77,12 @@ class SignUp extends Component {
         </div>
     );
   }
-
 }
 
-export default withFirebase(withRouter(SignUp));
+const mapDispatchToProps = dispatch => {
+  return {
+    onRegister : (email, password, username) => dispatch(actions.authRegister(email, password, username))
+  }
+}
+
+export default connect(null, mapDispatchToProps)(SignUp);

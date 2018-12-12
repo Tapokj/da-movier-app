@@ -1,0 +1,38 @@
+.all-err
+  background-color: rgba(33,37,41, .8)
+  width: 30%
+  position: fixed
+  z-index: 100
+  top: 7%
+  right: -100%
+  color: white
+  font-family: 'Roboto', 'sans-serif'
+  transition: all 1.6s ease-out
+  padding: 10px
+
+  .err-text
+    display: flex
+
+  h5, i
+    color: #ee0b14
+
+  i
+    font-size: 25px
+    position: relative
+    margin-left: 5px
+    margin-right: 10px
+
+  p
+    font-size: 15px
+
+.alert-err-enter-active
+  right: 0
+  opacity: 1
+
+@media (max-width: 760px)
+  .all-err
+    display: none
+
+  .alert-err-enter-active
+    display: none
+    opacity: 0

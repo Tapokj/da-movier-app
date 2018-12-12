@@ -1,0 +1,94 @@
+$green : #51c3a5
+
+@media (max-width: 980px)
+
+  .mobile-menu
+    position: fixed
+    width: 50%
+    height: calc(100% - 50px)
+    overflow-y: auto
+    top: 0
+    left: -100%
+    padding: 7px 10px
+    background-color: #fff
+    transition: all 1.2s ease-out
+    z-index: 200
+
+
+    h2
+      font-family: 'Kaushan Script', cursive
+      text-align: center
+
+
+    ul
+      list-style: none
+      display: flex
+      flex-direction: column
+
+      p
+        padding: 10px
+        font-family: 'Roboto', sans-serif
+
+    .action-buttons
+      display: flex
+      flex-direction: column
+
+      span
+        padding: 5px
+        display: flex
+        align-items: center
+        margin-top: 10px
+        cursor: pointer
+        box-shadow: 1px 5px 10px rgba(0, 0, 0, 0.1)
+
+        &::before
+          content: ''
+          display: inline-block
+          height: 40px
+          top: 5px
+          width: 5px
+          position: relative
+          right: 2%
+          background-color: $green
+
+
+.mobile-menu.open
+  left: 0
+  height: 100%
+
+.sign-up-mobile
+  transition: all 1s ease-out
+  display: flex
+  flex-direction: column
+
+.sign-up-mobile-enter-active
+  transform: translateX(20px)
+
+.sign-up-mobile-exit-active
+  transform: translateX(-350px)
+
+.sign-in-mobile-menu
+  display: flex
+  flex-direction: column
+  transition: all 1s ease-out
+
+
+.sign-in-mobile-menu-enter-active
+  transform: translateX(20px)
+
+
+.sign-in-mobile-menu-exit-active
+  transform: translateX(-350px)
+
+
+@media (min-width: 980px)
+  .mobile-menu
+    display: none
+
+@media (max-width: 730px)
+  .mobile-menu
+    width: 60%
+
+@media (max-width: 568px)
+  .mobile-menu
+    width: 70%
