@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-// import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
 // Components
 import SignIn  from '../auth/SignIn/SignIn';
@@ -39,24 +39,24 @@ class Header extends Component {
           <h2>Da'Movier</h2>
         </div>
         <div className='header-actions'>
-          <ul className='list-header'>
-            <li><p>Фильмы</p></li>
-            <li><p>Сериалы</p></li>
-          </ul>
-        <div className="right-panel">
-          <div className='search'>
-          {!this.state.show ? <i className="fas fa-search"></i> : null}
-          </div>
-          <div className="login-header">
-            {!authUser ? (
-              <React.Fragment>
-                <SignIn click={this.clickHandler} show={this.state.show} />
-                 {!this.state.show ? <p onClick={this.clickHandler}>Вход</p> : null}
-                <p onClick={clicked} className='registration-button'>Регистрация</p>
-              </React.Fragment>
-            ) : <SignOut/>}
-          </div>
-        </div>
+            <ul className='list-header'>
+              <li><NavLink activeStyle={{color: '#51c3a5'}} to='/movies/page/1'>Фильмы</NavLink></li>
+              <li><p>Сериалы</p></li>
+            </ul>
+            <div className="right-panel">
+              <div className='search'>
+                {!this.state.show ? <i className="fas fa-search"></i> : null}
+              </div>
+              <div className="login-header">
+                {!authUser ? (
+                  <React.Fragment>
+                    <SignIn click={this.clickHandler} show={this.state.show} />
+                     {!this.state.show ? <p onClick={this.clickHandler}>Вход</p> : null}
+                    <p onClick={clicked} className='registration-button'>Регистрация</p>
+                  </React.Fragment>
+                ) : <SignOut/>}
+              </div>
+            </div>
         </div>
       </header>
     );
@@ -65,8 +65,8 @@ class Header extends Component {
 
 const mapStateToProps = state => {
   return {
-    authUser : state.user,
-    mobile   : state.mobileMenu
+    authUser : state.auth.user,
+    mobile   : state.auth.mobileMenu
   }
 }
 

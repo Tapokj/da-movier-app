@@ -11,16 +11,10 @@ const SignOut = ({ onLogout }) => (
     </div>
 )
 
-const mapStateToProps = state => {
-  return {
-    authUser : state.user
-  }
-}
-
 const mapDispatchToProps = dispatch => {
   return {
     onLogout : () => dispatch(actions.authLogout())
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(SignOut);
+export default connect(null, mapDispatchToProps)(SignOut);

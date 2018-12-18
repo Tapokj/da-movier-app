@@ -75,9 +75,9 @@ class MobileMenu extends Component {
 
 const mapStateToProps = state => {
   return {
-    isMenuOpen : state.mobileMenu,
-    authUser   : state.user,
-    error      : state.error
+    isMenuOpen : state.auth.mobileMenu,
+    authUser   : state.auth.user,
+    error      : state.auth.error
   }
 }
 

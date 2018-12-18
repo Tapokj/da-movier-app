@@ -5,3 +5,10 @@ export {
   authLogout,
   mobileAuth
 } from './auth.js';
+
+export {
+  doLoadMovie,
+  doLoadCertainMovie,
+  doCharactersLoad,
+  doLoadVideo
+} from './moviesDown.js';

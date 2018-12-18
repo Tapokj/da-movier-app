@@ -1,21 +1,27 @@
 import React    from 'react';
 import ReactDOM from 'react-dom';
-//App Component
+// App Component
 import App      from './App';
-//react router
+// React router
 import { BrowserRouter as Router }   from 'react-router-dom';
-//redux
+// Redux
 import { Provider } from 'react-redux';
 import thunk        from 'redux-thunk';
-import { createStore, applyMiddleware, compose } from 'redux';
-//reducer
-import reducer from './store/reducers/auth.js'
-// styles & CSS 
+import { createStore, applyMiddleware, compose, combineReducers } from 'redux';
+// Reducer
+import authReducer from './store/reducers/auth';
+import movReducer  from './store/reducers/moviesDown';
+// styles & CSS
 import './index.css';
-
-
+// Combine different reducers
+const rootReducer = combineReducers({
+  auth  : authReducer,
+  movie : movReducer
+})
+// Devtools Redux Extension for Development Settings
 const composeEnhancers = process.env.NODE_ENV === 'development' ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ : null || compose;
-const store = createStore(reducer, composeEnhancers(
+// Create Store
+const store = createStore(rootReducer, composeEnhancers(
   applyMiddleware(thunk)
 ))
 

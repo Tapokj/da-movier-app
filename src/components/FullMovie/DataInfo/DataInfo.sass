@@ -1,0 +1,39 @@
+.data-info
+
+.list-data
+  display: flex
+  padding: 10px
+  background-color: lighten(#ccc, 16%)
+  position: relative
+  border-top-right-radius: 15px
+  border-bottom-right-radius: 15px
+  bottom: 0
+  &::after
+    content: ''
+    display: block
+    position: absolute
+    height: 100%
+    width: 5px
+    left: 0
+    top: 0
+    background-color: #51c3a5
+
+
+  .question-list, .answer-list
+    p
+      margin: 10px 30px
+      font-size: 14px
+
+    span
+      color: lighten(green, 10%)
+
+    .fa-imdb
+      font-size: 35px
+      color: orange
+
+.overview
+  p
+    font-size: 14px
+    line-height: 1.8
+    color: darken(#ccc, 25%)
+    margin-top: 15px

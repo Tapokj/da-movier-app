@@ -1,0 +1,125 @@
+$green: #51c3a5
+
+
+.movie-diff
+  display: flex
+  justify-content: space-around
+  flex-flow: row wrap
+  position: relative
+
+.movie-post
+  margin-top: 60px
+  font-family: 'Roboto', sans-serif
+  width: 100%
+
+  .block-poster
+    display: flex
+    flex-direction: column
+    align-items: center
+
+  .wrapper-image
+
+    &::after
+      content: ''
+      display: block
+      height: 5px
+      top: 0
+      position: relative
+      width: 320px
+
+  .red_vote
+    color: red
+    &::after
+      background-color: red
+
+  .green_vote
+    color: green
+    &::after
+      background-color: green
+
+  .yellow_vote
+    color: lighten(orange, 10%)
+    &::after
+      background-color: lighten(orange, 10%)
+
+
+  .vote-and-add-movie
+    background-color: lighten(#ccc, 15%)
+    border-bottom-left-radius: 15px
+    border-bottom-right-radius: 15px
+    display: flex
+    align-items: center
+    justify-content: space-around
+    width: 320px
+    height: 50px
+
+    .vote
+      font-size: 21px
+      text-align: center
+      height: 30px
+      position: relative
+      top: 2px
+    p
+      font-size: 10px
+      margin: 0
+      height: 20px
+
+    i
+      font-size: 23px
+      position: relative
+      top: 4px
+      color: orange
+      margin: 0
+      padding: 0
+      position: relative
+      left: calc(50% - 11px)
+      cursor: pointer
+      height: 30px
+
+  .poster-movie
+    width: 320px
+    position: relative
+
+
+
+
+  .block-data
+    margin: 30px 0
+
+    h4
+      font-size: 29px
+      padding: 0
+      margin: 0
+
+    .origin-name
+      color: darken(#ccc, 15%)
+      padding-top: 10px
+
+    .tagline
+      margin-top: 15px
+      font-size: 20px
+      font-style: italic
+      font-size: 18px
+
+  .info-links
+    font-size: 30px
+
+    a
+      color: red
+  .block-overview
+    .link-to-all-char
+      text-align: center
+      background-color: lighten(#ccc, 10%)
+      height: 150px
+      cursor: pointer
+
+      p
+        position: relative
+        top: calc(50% - 15px)
+        font-size: 18px
+
+  .staff-slider
+    margin-top: 30px
+
+  .characters-slider
+    margin-top: 30px

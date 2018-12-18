@@ -21,8 +21,8 @@ const ErrorAlert = ({ errorBoolean, error }) =>  (
 
 const mapStateToProps = state => {
   return {
-    error        : state.error,
-    errorBoolean : state.error ? true : false
+    error        : state.auth.error,
+    errorBoolean : state.auth.error ? true : false
   }
 }
 

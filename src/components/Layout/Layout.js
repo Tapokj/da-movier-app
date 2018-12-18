@@ -29,7 +29,7 @@ const Layout = ({ onAuthModal, loginModal, children  }) =>  (
 
 const mapStateToProps = state => {
   return {
-    loginModal : state.modal,
+    loginModal : state.auth.modal,
   }
 }
 
