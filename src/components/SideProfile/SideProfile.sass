@@ -1,0 +1,98 @@
+.side-profile
+  position: fixed
+  width: 22%
+  height: 100%
+  right: -100%
+  background-color: #24344b
+  z-index: 200
+  transition: .7s all
+  overflow-y: scroll
+  overflow-x: hidden
+  overflow : auto
+
+  .profile
+    display: flex
+    flex-direction: column
+    align-items: center
+    width: 100%
+
+    .prof-info
+      width: 100%
+      display: flex
+      flex-direction: column
+      align-items: center
+
+      input[type='file']
+        display: none
+
+      img
+        width: 50px
+        height: 50px
+        border-radius: 30px
+
+      .plus
+        position: absolute
+        top: 60px
+        left: calc(50% - 8px)
+        color: white
+        background-color: #2ecc92
+        font-size: 11px
+        padding: 3px 4px
+        width: 18px
+        height: 17px
+        border-radius: 40px
+
+      i
+        color: darken(#ccc, 40%)
+        margin-top: 10px
+        font-size: 20px
+        position: relative
+        cursor: pointer
+        left: 40%
+
+      h4
+        margin-top: 15px
+        font-size: 20px
+        color: white
+        font-family: 'Roboto', sans-serif
+
+      #email
+        color: #7f919d
+        font-family: 'Roboto', sans-serif
+
+    .personal-user-lists
+      background-color: #2b3c58
+      width: 100%
+
+      .list-of-lists
+        list-style: none
+        padding: 0
+        margin: 10px 5px
+
+        li
+          padding: 5px
+          margin-top: 5px
+          color: #f8d7da
+          font-family: 'Roboto', sans-serif
+          &::before
+            display: inline-block
+            position: relative
+            top: 4px
+            margin-right: 8px
+            content: ''
+            width: 3px
+            height: 20px
+            background-color: #2ecc92
+
+    .btn-added
+      background-color: #2ecc92
+      border: none
+      padding: 7px 10px
+      margin-top: 15px
+      border-radius: 10px
+      color: white
+      font-family: 'Roboto', sans-serif
+      cursor: pointer
+
+.side-profile.active
+  right: 0

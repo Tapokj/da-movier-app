@@ -6,31 +6,64 @@ import DataInfo  from './DataInfo/DataInfo';
 import Slider    from 'react-slick';
 import Spinner   from '../../components/UI/Spinner/Spinner'
 import Videos    from './Videos/Videos';
+import Links     from './Links/Links';
+import AddToList from './AddToList/AddToList';
+import MoviesList from '../MoviesList/MoviesList';
 // Redux & actions
 import { connect } from 'react-redux';
 import * as actions from '../../store/actions';
 import * as actionTypes from '../../store/actions/actionsTypes';
+import Cookies from 'universal-cookie';
+
+
+
+import { classNames } from '../../Utillity/Utillity';
 
 // styles & CSS
 import './FullMovie.sass';
 
+
 class FullMovie extends Component {
 
-  componentDidMount () {
-    const params = this.props.match.params.id
+  reqCook = new Cookies()
 
-    if ( params ) {
-      this.props.onLoadCertainMovie(params)
-      // Load slider of person
-      this.props.onLoadPerson(params, actionTypes.PERSON_CHARACTERS)
-      this.props.onLoadPerson(params, actionTypes.PERSON_STAFF)
+  state = {
+    openModalAuthMovie : false
+  }
+
+  changeModalHandler = () => {
+    this.setState(prevState => ({
+      openModalAuthMovie : !prevState.openModalAuthMovie
+    }))
+  }
+
+  loadAllInfoOfMovie = (params = this.props.match.params.id) => {
+    this.props.onLoadCertainMovie(params)
+    // Load slider of person
+    this.props.onLoadPerson(params, actionTypes.PERSON_CHARACTERS)
+    this.props.onLoadPerson(params, actionTypes.PERSON_STAFF)
+  }
+
+  componentDidUpdate (prevProps) {
+    if ( this.props.match.params.id !== prevProps.match.params.id ) {
+      this.loadAllInfoOfMovie()
     }
+  }
+
+  componentDidMount(){
+    const params = this.props.match.params.id
+    if ( params ) {
+      this.loadAllInfoOfMovie()
+    }
+  }
+
+  addItemHandler = () => {
+    this.props.onAddItem(this.props.match.params.id, 99398, this.reqCook.get('ac_tok'))
   }
 
   transformArr = (propArrProp) => {
 
     const newArr = [];
-
     propArrProp.map(element => {
       return newArr.push(element.name)
     })
@@ -38,24 +71,10 @@ class FullMovie extends Component {
   }
 
 
+
   render() {
-    const { moviePost, characters, staff, loading } = this.props;
-
-    const classNames = () => {
-      const vote = moviePost.vote_average
-
-      if (vote ? vote.toFixed(1) <= 5 : null ) {
-        return 'red_vote'
-      }
-
-      else if (vote ? vote.toFixed(1) > 5 && vote.toFixed(1) <= 6.9 : null ) {
-        return 'yellow_vote'
-      }
-
-      else if (vote ? vote.toFixed(1) >= 7 && vote.toFixed(1) <= 10 : null) {
-        return 'green_vote'
-      }
-    }
+    const { moviePost, characters, staff, loading, error } = this.props;
+    const { vote_average } = this.props.moviePost;
 
     const settingsSlider = {
       dots: true,
@@ -81,6 +100,9 @@ class FullMovie extends Component {
 
       charSlider = (
         <div className="block-overview">
+          <MoviesList
+            modalClose={this.changeModalHandler}
+            show={this.state.openModalAuthMovie}/>
           <div className="characters-slider">
             <p>В главных ролях</p>
             <Slider {...settingsSlider}>
@@ -119,19 +141,22 @@ class FullMovie extends Component {
       <div className='movie-post container'>
         <div className="movie-diff">
           <div className='block-poster'>
-            <div className={`wrapper-image ${classNames()}`}>
+            <div className={`wrapper-image ${vote_average ? classNames(vote_average) : null}`}>
               {!loading ? <img className='poster-movie' src={`https://image.tmdb.org/t/p/w400${moviePost.poster_path}`} alt="Poster"/> : <Spinner/>}
             </div>
             <div className="vote-and-add-movie">
               <div>
-                <p className={`vote ${classNames()}`}>{moviePost.vote_average ?  moviePost.vote_average.toFixed(1) : null}</p>
+                <p className={`vote ${vote_average ? classNames(vote_average) : null}`}>{vote_average ?  vote_average.toFixed(1) : null}</p>
                 <p>Средняя оценка</p>
               </div>
               <div>
-                <i className="fas fa-plus add-movie"></i>
-                <p>Добавить фильм</p>
+                <AddToList
+                  clicked={!this.reqCook.get('ac_tok') ? this.changeModalHandler : this.addItemHandler}
+                />
               </div>
-
+            </div>
+            <Links/>
+            <div className="social-links">
             </div>
           </div>
           <div className="block-data col-md-7" >
@@ -139,6 +164,9 @@ class FullMovie extends Component {
             <span className='origin-name'>{moviePost.original_title}</span>
             <p className='tagline'>{moviePost.tagline}</p>
             {/*  Display basic information about movie */}
+
+            {/* Error? Woops! We need to display it for user! */}
+            {error ? <div className="alert alert-danger">{error}</div> : null}
             {dataInfo}
             {charSlider}
             <Videos/>
@@ -157,14 +185,17 @@ const mapStateToProps = state => {
     moviePost  : state.movie.certainMovie,
     characters : state.movie.characters,
     staff      : state.movie.staff,
-    loading    : state.movie.loading
+    loading    : state.movie.loading,
+    error      : state.movie.error,
+    socialLink : state.movie.socialLinks
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
     onLoadCertainMovie: (id) => dispatch(actions.doLoadCertainMovie(id)),
-    onLoadPerson : (id, typePerson) => dispatch(actions.doCharactersLoad(id, typePerson))
+    onLoadPerson : (id, typePerson) => dispatch(actions.doCharactersLoad(id, typePerson)),
+    onAddItem    : (item, list, token) => dispatch(actions.doAddItem(item, list, token))
   }
 }
 

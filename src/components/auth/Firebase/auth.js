@@ -1,10 +1,10 @@
-import { auth, db } from './firebase';
+import { auth, db, storageRef } from './firebase';
 
 // -- Authentication API --
 
 // Registration User
 export const doRegistration = (email, password) => {
-  return auth.createUserWithEmailAndPassword(email, password)
+  return auth.createUserWithEmailAndPassword(email, password);
 };
 
 export const doEmailVerification = () => {
@@ -29,5 +29,26 @@ export const doCreateUser     = (id, username, email, role = 'USER') => {
     role
   })
 }
+
+export const doUpdateProfile = (photo) => {
+  return new Promise((resolve, reject) => {
+    const stRef = storageRef.child(`profile/${photo.name}`)
+    resolve(stRef.put(photo))
+  })
+  .then(() => {
+    db.ref(`users/${auth.currentUser.uid}`).update({
+      profileImg : photo.name
+    })
+  })
+}
+
+// Update Movies Lists User
+
+export const updateMovieListUser = (userID, listID) => {
+  return db.ref(`users/${auth.currentUser.uid}/lists`).update({
+    [listID * 1] : listID
+  })
+}
+
 // get users from database
 export const onceGetUsers = () => db.ref('users').once('value')

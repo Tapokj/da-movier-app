@@ -15,7 +15,7 @@ import './Header.sass';
 class Header extends Component {
 
   state = {
-    show: false,
+    show: false
   }
 
   clickHandler = () => {
@@ -24,8 +24,16 @@ class Header extends Component {
     }))
   }
 
+  componentDidUpdate(prevProps){
+    if ( this.props.authUser !== prevProps.authUser ) {
+      this.setState({
+        show : false
+      })
+    }
+  }
+
   render() {
-    const { mobile, isMenuOpen, authUser, clicked } = this.props;
+    const { mobile, isMenuOpen, authUser, clicked, sideProfileClicked } = this.props;
 
     return (
       <header className='header'>
@@ -54,7 +62,13 @@ class Header extends Component {
                      {!this.state.show ? <p onClick={this.clickHandler}>Вход</p> : null}
                     <p onClick={clicked} className='registration-button'>Регистрация</p>
                   </React.Fragment>
-                ) : <SignOut/>}
+                ) : (
+                  <div className="row prof-section">
+                    <i onClick={sideProfileClicked} className="fas fa-user profile"></i>
+                    <SignOut/>
+                  </div>
+                )}
+
               </div>
             </div>
         </div>

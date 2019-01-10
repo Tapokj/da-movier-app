@@ -3,12 +3,21 @@ export {
   loginModalHandler,
   authLogin,
   authLogout,
-  mobileAuth
+  mobileAuth,
+  fetchUser,
+  fetchMovieListID,
+  updatePhotoProfile
 } from './auth.js';
 
 export {
   doLoadMovie,
   doLoadCertainMovie,
   doCharactersLoad,
-  doLoadVideo
+  doLoadVideo,
+  doLoadSocial,
+  sessionHandler,
+  submitListHandler,
+  doAddItem,
+  sideChange,
+  loadingList
 } from './moviesDown.js';

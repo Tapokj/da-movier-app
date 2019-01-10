@@ -11,6 +11,8 @@
 # production
 /build
 
+/API
+
 # misc
 .DS_Store
 .env.local

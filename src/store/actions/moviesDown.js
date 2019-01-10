@@ -1,7 +1,15 @@
 import * as actionsTypes from './actionsTypes';
+
+import { API_V3_KEY as API_KEY } from '../../API/API';
 // async library
 import axios from 'axios';
 
+
+export const sideChange = () => {
+  return {
+    type : actionsTypes.ON_SIDE_CHANGED
+  }
+}
 
 // Start Loading Movies Action
 export const startLoading   = () => {
@@ -32,6 +40,13 @@ export const successLoadingOne = (data) => {
   }
 }
 
+export const succesLoadListID = id => {
+  return {
+    type: actionsTypes.SUCCESS_LOAD_ID,
+    id  : id
+  }
+}
+
 export const succesLoadPerson = (data) => {
   return {
     type : actionsTypes.SUCCES_LOAD_PERSON,
@@ -47,23 +62,126 @@ export const succesLoadPersonStaff = (data) => {
 }
 
 export const succesLoadVideo = data => {
-  console.log(data)
   return {
     type : actionsTypes.SUCCES_LOAD_VIDEO,
     data : data
   }
 }
 
-const API_KEY = 'aaf0e38409cf127b161088dd27841deb';
+export const successLoadSocial = data => {
+  return {
+    type : actionsTypes.SUCCESS_LOAD_SOCIAL,
+    data : data
+  }
+}
 
+export const sessionHandler = (session) => {
+  return {
+    type    : actionsTypes.SESSION_ID_HANDLER,
+    session : session
+  }
+}
+
+export const startAddItem = () => {
+  return {
+    type : actionsTypes.START_ADD_ITEM
+  }
+}
+
+export const successAddedItem = () => {
+  return {
+    type: actionsTypes.SUCCESS_ITEM_ADDED
+  }
+}
+
+export const errorOnItemAdded = (error) => {
+  return {
+    type : actionsTypes.ERROR_ITEM_ADDED,
+    error: error
+  }
+}
+
+export const loadPersonalListStart = () => {
+  return {
+    type : actionsTypes.LOADING_PERSONAL_LIST_START
+  }
+}
+
+
+export const loadPersonalListSucc = (data) => {
+  return {
+    type : actionsTypes.LOADING_PERSONAL_LIST_SUCC,
+    data : data
+  }
+}
+
+export const loadPersonalListError = (error) => {
+  return {
+    type  : actionsTypes.LOADING_PERSONAL_LIST_ERROR,
+    error : error
+  }
+}
+
+
+const baseAPI   = `https://api.themoviedb.org/3`;
+const baseAPIv4 = 'https://api.themoviedb.org/4';
+
+export const loadingList = (lists, token) => dispatch => {
+  dispatch(loadPersonalListStart())
+  axios({
+    method: 'get',
+    url : `${baseAPIv4}/list/${lists}?page=1&language=ru&sort_by=original_order.desc`,
+    headers: {
+      'Authorization' : `Bearer ${token}`,
+      'Content-Type'  : `application/json;charset=utf-8`
+    }
+  })
+  .then(response => dispatch(loadPersonalListSucc(response.data)))
+  .catch(error   => dispatch(loadPersonalListError(error.message)))
+}
+
+export const doAddItem = (item, list, sessToken) => {
+  return dispatch => {
+    dispatch(startAddItem())
+    axios({
+      url: baseAPIv4 + `/list/${list}/items`,
+      method : 'post',
+      headers: {
+        'Authorization' : `Bearer ${sessToken}`,
+        'Content-Type'  : `application/json;charset=utf-8`
+      },
+      data: {
+        'items' : [
+          {
+            'media_type' : 'movie',
+            'media_id' : item
+          }
+        ]
+      }
+    })
+    .then(response => {
+      dispatch(successAddedItem())
+    })
+    .catch(error => dispatch(errorOnItemAdded(error.message)))
+  }
+}
+
+export const submitListHandler = (session, postData) => {
+  return dispatch => {
+
+     axios.post(`${baseAPI}/list?api_key=${API_KEY}&session_id=${session}`, postData)
+      .then(response => {
+        console.log(response)
+        dispatch(succesLoadListID(response.data.list_id))
+      })
+  }
+}
 
 export const doLoadVideo = movie => {
   return dispatch => {
     dispatch(startLoading())
 
-
-
-    axios.get(`https://api.themoviedb.org/3/movie/${movie}/videos?api_key=${API_KEY}&language=en-US`)
+    axios.get(`${baseAPI}/movie/${movie}/videos?api_key=${API_KEY}&language=en-US`)
       .then(response => {
         const allVideo = []
         for ( let video in response.data.results.slice(0, 2) ) {
@@ -77,25 +195,33 @@ export const doLoadVideo = movie => {
   }
 }
 
+
+export const doLoadSocial = id => {
+  return dispatch => {
+    axios.get(`${baseAPI}/movie/${id}/external_ids?api_key=${API_KEY}`)
+      .then(response => {
+        dispatch(successLoadSocial(response.data))
+      })
+     .catch(error => dispatch(errorLoading(error.message)))
+  }
+}
+
 // Start Loading Movies Functionality
 export const doLoadMovie = (page = 1) => {
   return dispatch => {
     dispatch(startLoading())
 
     const allMovieArr = []
-      axios.get(`https://api.themoviedb.org/3/movie/popular?api_key=${API_KEY}&language=ru&page=${page}`)
+      axios.get(`${baseAPI}/movie/popular?api_key=${API_KEY}&language=ru&page=${page}`)
         .then(response => {
-
           for ( let element in response.data.results ) {
             allMovieArr.push({
               ...response.data.results[element]
             })
           }
-
           dispatch(successLoading(allMovieArr.slice(0, 500)))
         })
         .catch(error => dispatch(errorLoading(error.message)))
-
   }
 }
 
@@ -103,9 +229,9 @@ export const doLoadCertainMovie = id => {
   return dispatch => {
     dispatch(startLoading())
 
-    axios.get(`https://api.themoviedb.org/3/movie/${id}?api_key=${API_KEY}&language=ru`)
+    axios.get(`${baseAPI}/movie/${id}?api_key=${API_KEY}&language=ru`)
       .then(response => {
-        dispatch(successLoadingOne(response.data))
+        dispatch(successLoadingOne({ ...response.data }))
       })
      .catch(error   => dispatch(errorLoading(error.message)))
   }
@@ -113,7 +239,7 @@ export const doLoadCertainMovie = id => {
 
 export const doCharactersLoad = (id, typePerson) => {
   return dispatch => {
-     axios.get(`https://api.themoviedb.org/3/movie/${id}/credits?api_key=${API_KEY}`)
+     axios.get(`${baseAPI}/movie/${id}/credits?api_key=${API_KEY}`)
       .then(response => {
 
         switch (typePerson) {
@@ -137,7 +263,7 @@ export const doCharactersLoad = (id, typePerson) => {
            return dispatch(succesLoadPersonStaff(newArrStaff))
 
           default:
-            return 
+            return
 
         }
       })

@@ -28,7 +28,7 @@ class Video extends Component {
               <iframe src={`https://www.youtube.com/embed/${element.key}`}
                 title={element.id}
                 allowFullScreen='allowFullScreen'
-                frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture;" ></iframe>
+                frameBorder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture;" ></iframe>
               </div>
             )
           }) : null}

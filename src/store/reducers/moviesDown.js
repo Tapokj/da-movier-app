@@ -7,11 +7,74 @@ const initialState = {
   characters : [],
   staff      : [],
   video      : [],
-  certainMovie : {}
+  certainMovie : {},
+  socialLinks : [],
+  session : '',
+  openedSideProfile : false,
+  personalList : [],
+  loaderList : true
 }
+
+
 
 const reducer = ( state = initialState, action ) => {
   switch (action.type) {
+
+    case actionsTypes.LOADING_PERSONAL_LIST_START:
+      return {
+        ...state,
+        loaderList : false
+      }
+
+    case actionsTypes.LOADING_PERSONAL_LIST_SUCC:
+
+      return {
+        ...state,
+        personalList : [
+          ...state.personalList,
+          action.data,
+        ],
+        loaderList : true
+      }
+
+    case actionsTypes.LOADING_PERSONAL_LIST_ERROR:
+      return {
+        ...state,
+        loaderList : true,
+        error : action.error
+      }
+
+    case actionsTypes.ON_SIDE_CHANGED:
+      return {
+        ...state,
+        openedSideProfile : !state.openedSideProfile
+      }
+
+    case actionsTypes.ERROR_ITEM_ADDED:
+      return {
+        ...state,
+        error : action.error
+      }
+
+    case actionsTypes.SUCCESS_ITEM_ADDED:
+      return {
+        ...state,
+        error : false
+      }
+
+    case actionsTypes.START_ADD_ITEM:
+      return {
+        ...state,
+        error : false
+      }
+
+    case actionsTypes.SUCCESS_LOAD_SOCIAL:
+      return {
+        ...state,
+        error   : false,
+        loading : false,
+        socialLinks : action.data
+      }
 
     case actionsTypes.START_LOADING_MOVIE:
       return {
@@ -37,6 +100,7 @@ const reducer = ( state = initialState, action ) => {
       }
 
     case actionsTypes.SUCCESS_LOADING_CERTAIN:
+
       return {
         ...state,
         loading : false,
@@ -63,6 +127,13 @@ const reducer = ( state = initialState, action ) => {
       loading  : false,
       video    : action.data
     }
+
+   case actionsTypes.SESSION_ID_HANDLER:
+     return {
+      ...state,
+      session : action.session
+    }
+
 
     default:
       return state;
