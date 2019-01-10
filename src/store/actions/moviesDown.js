@@ -122,6 +122,22 @@ export const loadPersonalListError = (error) => {
   }
 }
 
+export const updateMovieListStart = () => {
+  return {
+    type : actionsTypes.PERSONAL_LIST_UPDATE_START
+  }
+}
+
+export const updateMovieListSucc = (updatedData, list) => {
+  return {
+    type : actionsTypes.PERSONAL_LIST_UPDATE,
+    payload : {
+      data : updatedData,
+      list : list
+    }
+  }
+}
+
 
 const baseAPI   = `https://api.themoviedb.org/3`;
 const baseAPIv4 = 'https://api.themoviedb.org/4';
@@ -160,7 +176,16 @@ export const doAddItem = (item, list, sessToken) => {
       }
     })
     .then(response => {
-      dispatch(successAddedItem())
+      dispatch(updateMovieListStart())
+      axios({
+        method: 'get',
+        url : `${baseAPIv4}/list/${list}?page=1&language=ru&sort_by=original_order.desc`,
+        headers: {
+          'Authorization' : `Bearer ${sessToken}`,
+          'Content-Type'  : `application/json;charset=utf-8`
+        }
+      })
+      .then(response => dispatch(updateMovieListSucc(response.data, list)))
     })
     .catch(error => dispatch(errorOnItemAdded(error.message)))
   }

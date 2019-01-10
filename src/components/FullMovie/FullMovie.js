@@ -8,12 +8,15 @@ import Spinner   from '../../components/UI/Spinner/Spinner'
 import Videos    from './Videos/Videos';
 import Links     from './Links/Links';
 import AddToList from './AddToList/AddToList';
+
 import MoviesList from '../MoviesList/MoviesList';
+
+import Cookies    from 'universal-cookie';
 // Redux & actions
-import { connect } from 'react-redux';
+import { connect }  from 'react-redux';
 import * as actions from '../../store/actions';
 import * as actionTypes from '../../store/actions/actionsTypes';
-import Cookies from 'universal-cookie';
+
 
 
 
@@ -24,7 +27,7 @@ import './FullMovie.sass';
 
 
 class FullMovie extends Component {
-
+  // We store session in cookie. It's important for gets value of session!
   reqCook = new Cookies()
 
   state = {
@@ -37,6 +40,9 @@ class FullMovie extends Component {
     }))
   }
 
+  /* Function from redux actions which update our data in store, and download new data depend on new
+  value of params
+  */
   loadAllInfoOfMovie = (params = this.props.match.params.id) => {
     this.props.onLoadCertainMovie(params)
     // Load slider of person
@@ -44,32 +50,35 @@ class FullMovie extends Component {
     this.props.onLoadPerson(params, actionTypes.PERSON_STAFF)
   }
 
+  /* When User Switch Movies in SideProfile, DidMount Not called. That's why we compare
+  params. And if params was changed, React Update Component with new data
+  */
   componentDidUpdate (prevProps) {
     if ( this.props.match.params.id !== prevProps.match.params.id ) {
       this.loadAllInfoOfMovie()
     }
   }
 
+  // Load Movie Data After Mounting
   componentDidMount(){
     const params = this.props.match.params.id
     if ( params ) {
       this.loadAllInfoOfMovie()
     }
   }
-
+  // Actions Funciton for added new item to list. Receives 3 args - (Movie ID, List ID, session token)
   addItemHandler = () => {
     this.props.onAddItem(this.props.match.params.id, 99398, this.reqCook.get('ac_tok'))
   }
 
+  // Get Array as arg and parse across each element in this array. Just Utillify function. No more :)
   transformArr = (propArrProp) => {
-
     const newArr = [];
     propArrProp.map(element => {
       return newArr.push(element.name)
     })
     return newArr.join(', ');
   }
-
 
 
   render() {
@@ -86,7 +95,7 @@ class FullMovie extends Component {
 
     let dataInfo   = <Spinner/>
     let charSlider = <Spinner/>
-
+    // DataInfo - is component which display basic information of movie. And Parse some data to readable view
     if ( !loading ) {
       dataInfo =  <DataInfo
                     duration={moviePost.runtime}
@@ -105,6 +114,7 @@ class FullMovie extends Component {
             show={this.state.openModalAuthMovie}/>
           <div className="characters-slider">
             <p>В главных ролях</p>
+            {/* Slider Component Which Display Images Of Characters  */}
             <Slider {...settingsSlider}>
               {characters.slice(0, 10).map(character => {
                 return (

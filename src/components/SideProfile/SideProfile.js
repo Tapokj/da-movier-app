@@ -20,6 +20,11 @@ class SideProfile extends Component {
   }
 
   componentDidUpdate(prevProps){
+    /* This code block implement async functions calls in redux actions
+      If prev userIfno not equal prev user info. React get currently list from
+      profile user and go through each list. Unique ID store as value. That's why
+      I use Object.values in this code
+    */
     if ( this.props.userInfo !== prevProps.userInfo ) {
       // Code download user info to sidebar if component was updated
       if ( this.props.userInfo.lists ) {
@@ -28,18 +33,38 @@ class SideProfile extends Component {
         })
       }
     }
+    /* This code block implement updating SideProfile Component without updating page and
+      closing this component. Condition of updating is state which should equals true (should have data)
+      and changing prev props depending on updating redux store. If data not equals each other - React
+      starting for loop which compare prev name of list in state with new list, then setState is called
+      with new data.
+    */
+    if (this.state.movieList && this.props.personalList !== prevProps.personalList){
+      for (let element in this.props.personalList){
+        // Compare name of list in state with new list. It looks for matches and puth in the state
+        if (this.props.personalList[element].name == this.state.movieList.name){
+          this.setState({ movieList : this.props.personalList[element] })
+        }
+      }
+    }
   }
 
+  /* This function change image of user profile. It get file and when it not equals null
+    push it to redux store as arg. Function in redux store change image and return new file
+  */
   handleChangeFile = (e) => {
     if ( e.target.files[0] !== null ) {
       this.props.onChangePhoto(e.target.files[0])
     }
   }
+  /* This function allows open list by clicked on name of this list. It's compare each element
+    in lists searching id matches. ID gets as e.target.id
+  */
 
   viewListById = (e) => {
     for ( let element in this.props.personalList ){
       if ( this.props.personalList[element].id == e.target.id && !this.state.sideOpen ){
-        this.setState({ movieList : this.props.personalList[element].results })
+        this.setState({ movieList : this.props.personalList[element]})
       }
     }
   }
@@ -77,7 +102,7 @@ class SideProfile extends Component {
               {loaderPersList}
             </ul>
           </div>
-          <SideProfileMovie clicked={this.clearState} data={this.state.movieList}/>
+          <SideProfileMovie clicked={this.clearState} data={this.state.movieList ? this.state.movieList.results : null}/>
           <div className="button-add-current-movie">
             <button className='btn-added'>Добавить фильм</button>
           </div>

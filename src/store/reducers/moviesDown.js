@@ -20,6 +20,26 @@ const initialState = {
 const reducer = ( state = initialState, action ) => {
   switch (action.type) {
 
+    case actionsTypes.PERSONAL_LIST_UPDATE_START:
+      return {
+        ...state,
+        loaderList : false
+      }
+
+    case actionsTypes.PERSONAL_LIST_UPDATE:
+      for (let element in state.personalList){
+        if (state.personalList[element].id != action.payload.list){
+          return {
+            ...state,
+            loaderList : true,
+            personalList: [
+              state.personalList[element],
+              action.payload.data
+            ]
+          }
+        }
+      }  
+
     case actionsTypes.LOADING_PERSONAL_LIST_START:
       return {
         ...state,
