@@ -9,6 +9,7 @@ import Videos    from './Videos/Videos';
 import Links     from './Links/Links';
 import AddToList from './AddToList/AddToList';
 
+import ChooseList from './ChooseList/ChooseList';
 import MoviesList from '../MoviesList/MoviesList';
 
 import Cookies    from 'universal-cookie';
@@ -31,7 +32,8 @@ class FullMovie extends Component {
   reqCook = new Cookies()
 
   state = {
-    openModalAuthMovie : false
+    openModalAuthMovie : false,
+    modalWithList : false
   }
 
   changeModalHandler = () => {
@@ -68,7 +70,16 @@ class FullMovie extends Component {
   }
   // Actions Funciton for added new item to list. Receives 3 args - (Movie ID, List ID, session token)
   addItemHandler = () => {
-    this.props.onAddItem(this.props.match.params.id, 99398, this.reqCook.get('ac_tok'))
+    // this.props.onAddItem(this.props.match.params.id, 99398, this.reqCook.get('ac_tok'))
+    this.setState(prevState => {
+      return {
+        modalWithList : !prevState.modalWithList
+      }
+    })
+  }
+
+  addToList = (id) => {
+    this.props.onAddItem(this.props.match.params.id, id, this.reqCook.get('ac_tok'))
   }
 
   // Get Array as arg and parse across each element in this array. Just Utillify function. No more :)
@@ -166,8 +177,7 @@ class FullMovie extends Component {
               </div>
             </div>
             <Links/>
-            <div className="social-links">
-            </div>
+            {this.state.modalWithList ? <ChooseList clicked={this.addToList} /> : null}
           </div>
           <div className="block-data col-md-7" >
             <h4>{moviePost.title}</h4>

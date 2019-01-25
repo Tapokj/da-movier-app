@@ -13,6 +13,42 @@ const initialState = {
 const reducer = ( state = initialState, action ) => {
   switch ( action.type ) {
 
+    case actionsTypes.SUCCC_LIST_DELETE_INFO:
+      return {
+        ...state
+      }
+
+    case actionsTypes.CHANGE_USER_PROFILE_INFO_START:
+      return {
+        ...state
+      }
+
+    case actionsTypes.CHANGE_USER_PROFILE_INFO_SUCC:
+      return {
+        ...state,
+        userInfo : {
+          ...action.info,
+          url: state.userInfo.url
+        }
+      }
+
+    case actionsTypes.CHANGE_USER_PROFILE_INFO_ERROR:
+      return {
+        ...state,
+        error : action.error
+      }
+
+    case actionsTypes.UPDATE_PASSWORD_SUCCESS:
+      return {
+        ...state
+      }
+
+    case actionsTypes.UPDATE_PASSWORD_ERROR:
+      return {
+        ...state,
+        error: action.error
+      }
+
     case actionsTypes.CHANGE_USER_PHOTO_START:
       return {
         ...state,
@@ -113,7 +149,8 @@ const reducer = ( state = initialState, action ) => {
     case actionsTypes.LOG_OUT:
       return {
         ...state,
-        user: action.user
+        user: action.user,
+        userInfo: null
       }
 
     default:

@@ -10,6 +10,9 @@
   overflow-x: hidden
   overflow : auto
 
+  &::-webkit-scrollbar
+    width: 0
+
   .profile
     display: flex
     flex-direction: column
@@ -49,6 +52,10 @@
         position: relative
         cursor: pointer
         left: 40%
+
+      #link-to-profile
+        &:hover
+          text-decoration: none
 
       h4
         margin-top: 15px

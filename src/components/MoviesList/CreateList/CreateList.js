@@ -63,7 +63,7 @@ class CreateList extends Component {
                   placeholder='List Description'
                   type="text"/>
                 <div>
-                  <button className='btn btn-danger'>Create List</button>
+                  <button className='btn'>Create List</button>
                 </div>
               </form>
             </div>
@@ -75,7 +75,7 @@ class CreateList extends Component {
 const mapDispatchToProps = dispatch => {
   return {
     onHandleSubmit: (session, postData) => dispatch(actions.submitListHandler(session, postData)),
-    onChangeInfo  : (listID) => dispatch(actions.fetchMovieListID(listID))
+    onChangeInfo  : (listID)            => dispatch(actions.fetchMovieListID(listID))
   }
 }
 

@@ -19,7 +19,7 @@ export const doSignOut = () => auth.signOut();
 // Password Reset
 export const doPasswordReset  =   email  => auth.sendPasswordResetEmail(email);
 // Password Update
-export const doPasswordUpdate = password => auth.updatePassowrd(password)
+export const doPasswordUpdate = password => auth.currentUser.updatePassword(password)
 
 // create user with other data in database
 export const doCreateUser     = (id, username, email, role = 'USER') => {
@@ -44,10 +44,14 @@ export const doUpdateProfile = (photo) => {
 
 // Update Movies Lists User
 
-export const updateMovieListUser = (userID, listID) => {
+export const updateMovieListUser = (listID) => {
   return db.ref(`users/${auth.currentUser.uid}/lists`).update({
     [listID * 1] : listID
   })
+}
+
+export const deleteMovieListUser = listId => {
+  return db.ref(`users/${auth.currentUser.uid}/lists`).child(listId).remove()
 }
 
 // get users from database

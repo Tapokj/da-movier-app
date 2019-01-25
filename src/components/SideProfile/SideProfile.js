@@ -6,6 +6,7 @@ import SideProfileMovie from './SideProfileMovie/SideProfileMovie'
 import { connect } from 'react-redux';
 import Cookies     from 'universal-cookie';
 import * as actions from '../../store/actions';
+import { Link } from 'react-router-dom';
 
 import { withRouter } from 'react-router-dom';
 
@@ -25,7 +26,7 @@ class SideProfile extends Component {
       profile user and go through each list. Unique ID store as value. That's why
       I use Object.values in this code
     */
-    if ( this.props.userInfo !== prevProps.userInfo ) {
+    if ( !this.props.updateList && this.props.userInfo !== prevProps.userInfo && this.props.userInfo !== null ) {
       // Code download user info to sidebar if component was updated
       if ( this.props.userInfo.lists ) {
         Object.values(this.props.userInfo.lists).map(element => {
@@ -33,7 +34,15 @@ class SideProfile extends Component {
         })
       }
     }
-    /* This code block implement updating SideProfile Component without updating page and
+
+    else if (this.props.updateList === true && this.props.userInfo !== prevProps.userInfo) {
+      if ( this.props.userInfo.lists ) {
+        Object.values(this.props.userInfo.lists).map(element => {
+          this.props.onLoadingLists(element, this.reqCook.get('ac_tok'), true)
+        })
+      }
+    }
+    /* This code block implement updating SideProfile Component after adding new item to list without updating page and
       closing this component. Condition of updating is state which should equals true (should have data)
       and changing prev props depending on updating redux store. If data not equals each other - React
       starting for loop which compare prev name of list in state with new list, then setState is called
@@ -94,7 +103,7 @@ class SideProfile extends Component {
               {imgLoading}
               <label style={{ 'opacity' : !loading ? '0' : '1' }} htmlFor="upload-profile"><i className="fas fa-plus plus"></i></label>
               <input onChange={this.handleChangeFile} type="file" id='upload-profile'/>
-              <h4>{userInfo ? userInfo.username : null}</h4>
+              <Link id='link-to-profile' to='/user-profile/'><h4>{userInfo ? userInfo.username : null}</h4></Link>
               <p id='email'>{authUser ? authUser.email : null}</p>
           </div>
           <div className="personal-user-lists">
@@ -118,14 +127,15 @@ const mapStateToProps = state => {
     userInfo : state.auth.userInfo,
     loading  : state.auth.loading,
     personalList : state.movie.personalList,
-    loaderList : state.movie.loaderList
+    loaderList : state.movie.loaderList,
+    updateList : state.movie.updateList
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
     onChangePhoto : (photo) => dispatch(actions.updatePhotoProfile(photo)),
-    onLoadingLists: (lists, token) => dispatch(actions.loadingList(lists, token))
+    onLoadingLists: (lists, token, updated) => dispatch(actions.loadingList(lists, token, updated))
   }
 }
 

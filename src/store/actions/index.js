@@ -6,7 +6,10 @@ export {
   mobileAuth,
   fetchUser,
   fetchMovieListID,
-  updatePhotoProfile
+  updatePhotoProfile,
+  authUpdatePassword,
+  updateUserInfo,
+  deleteUserListProf
 } from './auth.js';
 
 export {
@@ -19,5 +22,7 @@ export {
   submitListHandler,
   doAddItem,
   sideChange,
-  loadingList
+  loadingList,
+  updateList,
+  deleteList
 } from './moviesDown.js';

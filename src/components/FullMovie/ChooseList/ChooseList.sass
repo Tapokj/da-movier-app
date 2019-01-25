@@ -1,0 +1,29 @@
+.choose-list
+  width: 100%
+  ul
+    display: flex
+    padding: 0
+    flex-direction: column
+    list-style: none
+    margin-top: 10px
+    border-radius: 5px
+    border: 1px solid #ccc
+    box-shadow: 1px 3px 1px rgba(0, 0, 0, .1)
+
+  li
+    font-family: 'Roboto', sans-serif
+    padding: 5px
+    font-size: 12px
+    cursor: pointer
+    color: #908e8c
+    transition: all .3s
+
+    &:hover
+      background-color: lighten(#ccc, 15%)
+      color: darken(#908e8c, 10%)
+
+.alert
+  width: 100%
+  height: 50px
+  text-align: center
+  margin-top: 20px

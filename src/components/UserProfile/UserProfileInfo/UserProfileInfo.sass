@@ -1,0 +1,46 @@
+$font: 'Roboto', sans-serif
+
+.user-info
+  display: flex
+  flex-direction: column
+  align-items: center
+  img
+    width: 260px
+    height: 250px
+    border-radius: 50%
+
+  h3
+    margin-top: 10px
+    color: #51c3a5
+    font-family: $font
+
+  p
+    color: darken(#ccc, 25%)
+    font-family: $font
+
+.user-links
+  ul
+    display: flex
+    flex-direction: column
+    font-family: 'Calibri', sans-serif
+    background-color: lighten(#ccc, 16%)
+    border-radius: 10px
+    padding: 0
+    font-size: 13px
+    color: lighten(black, 50%)
+    box-shadow: 1px 5px 15px rgba(0, 0, 0, .2)
+
+    .active
+      background-color: lighten(#ccc, 10%)
+      color: #7f919d
+
+    li
+      list-style: none
+      cursor: pointer
+      padding:
+        top: 10px
+        bottom: 10px
+        left: 10px
+
+    li:not(:last-child)
+      border-bottom: 1px solid darken(#f8d7da, 10%)

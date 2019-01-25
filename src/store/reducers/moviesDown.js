@@ -12,13 +12,66 @@ const initialState = {
   session : '',
   openedSideProfile : false,
   personalList : [],
-  loaderList : true
+  loaderList : true,
+  updateList : false,
+  successAdd : false
 }
 
 
 
 const reducer = ( state = initialState, action ) => {
   switch (action.type) {
+
+
+    case actionsTypes.START_LIST_DELETE:
+      return {
+        ...state
+      }
+
+    case actionsTypes.SUCC_LIST_DELETE:
+      const newList = []
+      for (let element in state.personalList){
+        if (state.personalList[element].id != action.list){
+          newList.push(state.personalList[element])
+        }
+      }
+      return {
+        ...state,
+        personalList : newList
+      }
+
+    case actionsTypes.ERROR_LIST_DELETE:
+      return {
+        ...state,
+        error : action.error
+      }
+
+    case actionsTypes.LOADING_PERSONAL_LIST_UPDATE_START:
+      return {
+        ...state,
+        loaderList : false
+      }
+
+    case actionsTypes.LOADING_PERSONAL_LIST_UPDATE_SUCC:
+        const newArr = [action.data];
+        for ( let element in state.personalList ) {
+          if ( state.personalList[element].id != action.data.id ){
+            newArr.push(state.personalList[element])
+          }
+        }
+        return {
+          ...state,
+          loaderList : true,
+          updateList : false,
+          personalList: newArr
+        }
+
+
+    case actionsTypes.UPDATE_LIST_AFTER_ADD_NEW:
+      return {
+        ...state,
+        updateList: true
+      }
 
     case actionsTypes.PERSONAL_LIST_UPDATE_START:
       return {
@@ -32,13 +85,19 @@ const reducer = ( state = initialState, action ) => {
           return {
             ...state,
             loaderList : true,
+            successAdd : true,
             personalList: [
               state.personalList[element],
               action.payload.data
             ]
           }
         }
-      }  
+      }
+   case actionsTypes.PERSONAL_LIST_UPDATE_END:
+      return {
+        ...state,
+        successAdd: false
+      }
 
     case actionsTypes.LOADING_PERSONAL_LIST_START:
       return {
@@ -47,15 +106,16 @@ const reducer = ( state = initialState, action ) => {
       }
 
     case actionsTypes.LOADING_PERSONAL_LIST_SUCC:
-
       return {
         ...state,
-        personalList : [
+        loaderList : true,
+        updateList : false,
+        personalList: [
           ...state.personalList,
-          action.data,
-        ],
-        loaderList : true
+          action.data
+        ]
       }
+
 
     case actionsTypes.LOADING_PERSONAL_LIST_ERROR:
       return {
@@ -100,11 +160,11 @@ const reducer = ( state = initialState, action ) => {
       return {
         ...state,
         error   : false,
-        loading : true
+        loading : true,
+        certainMovie : {}
       }
 
     case actionsTypes.SUCCESS_LOADING:
-
       return {
         ...state,
         popMovies : action.data,
@@ -123,8 +183,8 @@ const reducer = ( state = initialState, action ) => {
 
       return {
         ...state,
-        loading : false,
-        certainMovie : action.data
+        certainMovie : action.data,
+        loading : false
       }
 
    case actionsTypes.SUCCES_LOAD_PERSON:

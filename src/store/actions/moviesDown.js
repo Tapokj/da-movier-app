@@ -138,12 +138,82 @@ export const updateMovieListSucc = (updatedData, list) => {
   }
 }
 
+export const updateMovieListEnd = () => {
+  return {
+    type : actionsTypes.PERSONAL_LIST_UPDATE_END
+  }
+}
+
+export const updateListMark = () => {
+  return {
+    type : actionsTypes.UPDATE_LIST_AFTER_ADD_NEW
+  }
+}
+
+export const loadingUpdateListStart = () => {
+  return {
+    type : actionsTypes.LOADING_PERSONAL_LIST_UPDATE_START
+  }
+}
+
+export const loadingUpdateListSucc = (data) => {
+  return {
+    type : actionsTypes.LOADING_PERSONAL_LIST_UPDATE_SUCC,
+    data : data
+  }
+}
+
+export const loadingUpdateListErr = error => {
+  return {
+    type  : actionsTypes.LOADING_PERSONAL_LIST_UPDATE_ERROR,
+    error : error
+  }
+}
+
+export const updateList = () => dispatch => {
+  dispatch(updateListMark())
+}
+
+export const deleteListStart = () => {
+  return {
+    type : actionsTypes.START_LIST_DELETE
+  }
+}
+
+export const deleteListSucc = list => {
+  return {
+    type : actionsTypes.SUCC_LIST_DELETE,
+    list : list
+  }
+}
+
+export const deleteListErr = error => {
+  return {
+    type  : actionsTypes.ERROR_LIST_DELETE,
+    error : error
+  }
+}
 
 const baseAPI   = `https://api.themoviedb.org/3`;
 const baseAPIv4 = 'https://api.themoviedb.org/4';
 
-export const loadingList = (lists, token) => dispatch => {
-  dispatch(loadPersonalListStart())
+export const deleteList = (lists, token) => dispatch => {
+  dispatch(deleteListStart())
+
+  axios({
+    method: 'delete',
+    url : `${baseAPIv4}/list/${lists}`,
+    headers: {
+      'Authorization' : `Bearer ${token}`,
+      'Content-Type'  : `application/json;charset=utf-8`
+    }
+  })
+  .then(() => dispatch(deleteListSucc(lists)))
+  .catch(error => dispatch(deleteListErr(error.message)))
+}
+
+export const loadingList = (lists, token, updated = false) => dispatch => {
+  !updated ? dispatch(loadPersonalListStart()) : dispatch(loadingUpdateListStart())
   axios({
     method: 'get',
     url : `${baseAPIv4}/list/${lists}?page=1&language=ru&sort_by=original_order.desc`,
@@ -152,8 +222,8 @@ export const loadingList = (lists, token) => dispatch => {
       'Content-Type'  : `application/json;charset=utf-8`
     }
   })
-  .then(response => dispatch(loadPersonalListSucc(response.data)))
-  .catch(error   => dispatch(loadPersonalListError(error.message)))
+  .then(response => !updated ? dispatch(loadPersonalListSucc(response.data)) : dispatch(loadingUpdateListSucc(response.data)))
+  .catch(error   => !updated ? dispatch(loadPersonalListError(error.message)): dispatch(loadingUpdateListErr(error.message)))
 }
 
 export const doAddItem = (item, list, sessToken) => {
@@ -186,6 +256,7 @@ export const doAddItem = (item, list, sessToken) => {
         }
       })
       .then(response => dispatch(updateMovieListSucc(response.data, list)))
+      .then(() => setTimeout(() => dispatch(updateMovieListEnd()), 1000))
     })
     .catch(error => dispatch(errorOnItemAdded(error.message)))
   }

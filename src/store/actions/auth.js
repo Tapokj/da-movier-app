@@ -51,6 +51,18 @@ export const loginEmailVerification = () => {
   }
 }
 
+export const updatePasswordSucc = (password) => {
+  return {
+    type: actionsTypes.UPDATE_PASSWORD_SUCCESS
+  }
+}
+
+export const updatePasswordError = error => {
+  return {
+    type: actionsTypes.UPDATE_PASSWORD_ERROR
+  }
+}
+// doPasswordUpdate
 export const logout = (user) => {
   return {
     type: actionsTypes.LOG_OUT,
@@ -112,12 +124,71 @@ export const changeUserProfileError = error => {
   }
 }
 
+export const userInfoUpdateStart = () => {
+  return {
+    type : actionsTypes.CHANGE_USER_PROFILE_INFO_START
+  }
+}
+
+export const userInfoUpdateSucc = info => {
+  return {
+    type : actionsTypes.CHANGE_USER_PROFILE_INFO_SUCC,
+    info : info
+  }
+}
+
+export const userInfoUpdateErr = error => {
+  return {
+    type  : actionsTypes.CHANGE_USER_PROFILE_INFO_ERROR,
+    error : error
+  }
+}
+
+export const startUserDeleteInfo = () => {
+  return {
+    type : actionsTypes.START_LIST_DELETE_INFO
+  }
+}
+
+export const succcUserDeleteInfo = () => {
+  return {
+    type : actionsTypes.SUCCC_LIST_DELETE_INFO
+  }
+}
+
+export const errorListDeleteInfo = error => {
+  return {
+    type : actionsTypes.ERROR_LIST_DELETE_INFO,
+    error: error
+  }
+}
+
+export const deleteUserListProf = (list, user) => dispatch => {
+  dispatch(startUserDeleteInfo())
+  auth.deleteMovieListUser(list)
+    .then(()     => dispatch(succcUserDeleteInfo()))
+    .catch(error => dispatch(errorListDeleteInfo(error.message)))
+}
+
+export const updateUserInfo = user => dispatch => {
+  dispatch(userInfoUpdateStart())
+  axios.get(`https://movie-app-98c6e.firebaseio.com/users/${user.uid}.json`)
+    .then(response => dispatch(userInfoUpdateSucc(response.data)))
+    .catch(error   => dispatch(userInfoUpdateErr(error.message)))
+}
+
+export const authUpdatePassword = password => dispatch => {
+  auth.doPasswordUpdate(password)
+    .then(()     => dispatch(updatePasswordSucc()))
+    .catch(error => dispatch(updatePasswordError(error.message)))
+}
+
 // Create List ID in User Profile Info
 
 export const fetchMovieListID = id => dispatch => {
   auth.updateMovieListUser(id)
     .then(()     => dispatch(updateMoviesList()))
-    .catch(error => errorMovieList(error.message))
+    .catch(error => dispatch(errorMovieList(error.message)))
 }
 
 export const fetchUser = () => dispatch => {

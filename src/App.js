@@ -6,8 +6,10 @@ import Layout     from './components/Layout/Layout';
 import List       from './components/List/List';
 import FullMovie  from './components/FullMovie/FullMovie';
 import PersonalList from './components/PersonalList/PersonalList';
+import UserProfile  from './components/UserProfile/UserProfile';
+
 import { fetchUser } from './store/actions'
-import { connect } from 'react-redux';
+import { connect }   from 'react-redux';
 
 //styles
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -24,8 +26,9 @@ class App extends Component {
       <Layout>
           <Switch>
             <Route  exact path='/movies/page/:page' component={List} />
-            <Route  exact path='/movie/:id'   component={FullMovie}/>
+            <Route  exact path='/movie/:id'         component={FullMovie}/>
             <Route  exact path='/personal-list/'    component={PersonalList}/>
+            <Route  exact path='/user-profile/'     component={UserProfile}/>
           </Switch>
       </Layout>
     );

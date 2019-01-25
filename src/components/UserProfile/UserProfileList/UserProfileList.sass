@@ -1,0 +1,51 @@
+.list-lists
+  overflow-x: scroll
+  padding: 0
+  overflow: auto
+  display: flex
+  li:not(:first-child)
+    margin-left: 15px
+
+  li
+    display: flex
+    padding: 10px
+    border-radius: 5px
+    background-color: lighten(#ccc, 16%)
+    color: #757575
+    font-size: 13px
+    box-shadow: 1px 5px 15px rgba(0, 0, 0, .1)
+    font-family: 'Calibri', sans-serif
+    cursor: pointer
+    margin-bottom: 10px
+
+  .active
+    background-color: #51c3a5
+    color: white
+
+  i
+    color: #51c3a5
+    font-size: 12px
+
+  .trash
+    margin-top: 7px
+    margin-left: 20px
+    cursor: pointer
+    
+
+.personal-list-container
+  a:hover
+    text-decoration: none
+    color: default
+
+  .list-display
+    margin-left: 20px
+    box-shadow: 1px 4px 10px rgba(0, 0, 0, .1)
+    margin-top: 20px
+
+  .vote
+    margin-top: -10px
+    position: relative
+    right: 50px
+
+  h3
+    font-size: 16px
