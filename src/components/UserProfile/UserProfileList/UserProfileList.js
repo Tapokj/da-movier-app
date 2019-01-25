@@ -72,7 +72,7 @@ class UserProfileList extends Component {
           {this.props.lists ? this.props.lists.map(element => {
             return <li onClick={this.viewListById} className={`${this.state.active && element.id === movieList.id ? 'active' : null}`} id={element.id} key={element.id}>{element.name}</li>
           }) : null}
-          <li  onClick={this.props.clicked} style={{'display' : this.state.movieList ? 'inline-block' : 'none'}}><i className='fas fa-plus add-new-list'></i></li>
+          <li  onClick={this.props.clicked} style={{'display' : 'inline-block'}}><i className='fas fa-plus add-new-list'></i></li>
           <div onClick={(listId) => this.props.clickedDelete(this.state.movieList.id) } style={{'display' : this.state.movieList ? 'inline-block' : 'none'}} className='trash'><i className="fas fa-trash"></i></div>
         </ul>
         <div className="personal-list-container">

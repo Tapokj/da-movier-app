@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import { NavLink } from 'react-router-dom';
+import { NavLink, Link } from 'react-router-dom';
 
 // Components
 import SignIn  from '../auth/SignIn/SignIn';
@@ -52,11 +52,12 @@ class Header extends Component {
            <span></span>
       </div>
         <div className="text-header">
-          <h2>Da'Movier</h2>
+          <Link to='/'><h2>Da'Movier</h2></Link>
         </div>
         <div className='header-actions'>
             <ul className='list-header'>
               <li><NavLink activeStyle={{color: '#51c3a5'}} to='/movies/page/1'>Фильмы</NavLink></li>
+              <li><NavLink activeStyle={{color: '#51c3a5'}} to='#'>Сериалы</NavLink></li>
             </ul>
             <div className="right-panel">
               <div className='search'>

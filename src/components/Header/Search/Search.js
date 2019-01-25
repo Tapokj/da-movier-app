@@ -56,7 +56,7 @@ class Search extends Component {
                   <div className='block-res'>
                     <img src={`https://image.tmdb.org/t/p/w500/${element.poster_path}`} alt="Poster"/>
                     <div>
-                      <h5>{element.title.slice(0, 16)}</h5>
+                      <h5>{element.title.slice(0, 20) + '...'}</h5>
                       <p>{element.release_date}</p>
                     </div>
                   </div>

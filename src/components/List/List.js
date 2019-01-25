@@ -50,7 +50,6 @@ class List extends Component {
     return (
       <div>
         <div className="container movie-wrapper">
-          <h2>Популярное</h2>
           <div className="container-movie">
             <div className="col-md-6">
               {loading ? listMovie : listMovie.slice(0, 10)}

@@ -23,6 +23,12 @@ const initialState = {
 const reducer = ( state = initialState, action ) => {
   switch (action.type) {
 
+    case actionsTypes.LOG_OUT:
+      return {
+        ...state,
+        personalList: []
+      }
+
     case actionsTypes.CHANGE_BACKDROP:
       return {
         ...state,
@@ -86,18 +92,17 @@ const reducer = ( state = initialState, action ) => {
       }
 
     case actionsTypes.PERSONAL_LIST_UPDATE:
+      const updList = [action.payload.data]
       for (let element in state.personalList){
         if (state.personalList[element].id != action.payload.list){
-          return {
-            ...state,
-            loaderList : true,
-            successAdd : true,
-            personalList: [
-              state.personalList[element],
-              action.payload.data
-            ]
-          }
+          updList.push(state.personalList[element])
         }
+      }
+      return {
+        ...state,
+        loaderList : true,
+        successAdd : true,
+        personalList: updList
       }
    case actionsTypes.PERSONAL_LIST_UPDATE_END:
       return {

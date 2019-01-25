@@ -1,6 +1,9 @@
 .search-bar
   z-index: 200
 
+  input
+    width: 200px
+
 .search-input-enter-active
   opacity: 1
   transition: all .1s
@@ -10,11 +13,11 @@
   transition: all .1s
 
 .results-searching
-  position: fixed
+  position: absolute
   margin-top: 10px
   z-index: 200
   background-color: darken(white, 5%)
-  width: 175px
+  width: 200px
 
   a
     color: black

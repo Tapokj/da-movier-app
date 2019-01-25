@@ -5,7 +5,7 @@ import Backdrop          from '../Backdrop/Backdrop';
 import { CSSTransition } from 'react-transition-group';
 // hoc
 import Movierapper from '../../../hoc/Movierapper';
-// styles & CSS 
+// styles & CSS
 import './Modal.sass'
 
 const Modal = ({ children, show, modalClose }) => (
