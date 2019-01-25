@@ -1,44 +1,19 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Da'Movier App 
 
-## Available Scripts
+Проект выводящий основную информацию по фильмам, включая постер/актерский каст/оценки/команду и т.д. 
+Также есть возможность регистрации на сайте для создания своих персональных списков. 
 
-In the project directory, you can run:
+## Технологии которые использовались при написании 
 
-### `npm start`
+- React 
+- Redux 
+- Firebase (Обеспечивает регистрацию и вывод информации о пользователе, включая email/nickname/avatar etc.
+- The Movie Database API - Для доступа к фильмам использовалось это API. 
+- JavaScript ES6 - 8. Весь сайт преимущественно написан на JS. Для отображения данных в DOM использовался JSX ествественно.
+- СSS3
+- Сторонние библиотеки, такие как axios/CSSTransition/ReactPagination/Redux Thunk для асинхронных запросов в action и т.д. 
 
-Runs the app in the development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## Здесь будут описываться основные обновления 
 
-The page will reload if you make edits.<br>
-You will also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.<br>
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.<br>
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+- Добавлена возможность поиска фильмов. Исправлен баг связанный с ошибкой обновления списков, в случае если списков больше чем два. 
+- Поправлен баг, когда страница меняла свои размеры при переключении между компонентами.  
