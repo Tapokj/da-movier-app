@@ -24,5 +24,6 @@ export {
   sideChange,
   loadingList,
   updateList,
-  deleteList
+  deleteList,
+  changeBackdrop
 } from './moviesDown.js';

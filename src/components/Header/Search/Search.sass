@@ -1,0 +1,43 @@
+.search-bar
+  z-index: 200
+
+.search-input-enter-active
+  opacity: 1
+  transition: all .1s
+
+.search-input-exit-active
+  opacity: 0
+  transition: all .1s
+
+.results-searching
+  position: fixed
+  margin-top: 10px
+  z-index: 200
+  background-color: darken(white, 5%)
+  width: 175px
+
+  a
+    color: black
+
+  a:hover
+    text-decoration: none
+    color: black
+
+  .search-result
+
+    .block-res
+      display: flex
+      margin-top: 5px
+      padding-left: 3px
+      h5
+        font-size: 12px
+
+      p
+        font-size: 10px
+        padding: 0
+        color: darken(#ccc, 15%)
+
+      img
+        width: 40px
+        height: 45px
+        margin-right: 10px

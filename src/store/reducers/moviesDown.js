@@ -14,7 +14,8 @@ const initialState = {
   personalList : [],
   loaderList : true,
   updateList : false,
-  successAdd : false
+  successAdd : false,
+  backdrop   : false
 }
 
 
@@ -22,6 +23,11 @@ const initialState = {
 const reducer = ( state = initialState, action ) => {
   switch (action.type) {
 
+    case actionsTypes.CHANGE_BACKDROP:
+      return {
+        ...state,
+        backdrop: !state.backdrop
+      }
 
     case actionsTypes.START_LIST_DELETE:
       return {

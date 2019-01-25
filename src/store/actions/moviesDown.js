@@ -194,6 +194,12 @@ export const deleteListErr = error => {
   }
 }
 
+export const changeBackdrop = () => {
+  return {
+    type : actionsTypes.CHANGE_BACKDROP
+  }
+}
+
 const baseAPI   = `https://api.themoviedb.org/3`;
 const baseAPIv4 = 'https://api.themoviedb.org/4';
 

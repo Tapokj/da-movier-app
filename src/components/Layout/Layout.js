@@ -12,10 +12,11 @@ import Movierapper  from '../../hoc/Movierapper';
 // Redux & actions
 import { connect }  from 'react-redux';
 import * as actions from '../../store/actions';
+import Backdrop     from '../UI/Backdrop/Backdrop';
 
 import { withRouter } from 'react-router-dom';
 
-  const Layout = ({ onAuthModal, loginModal, children, onSideChange, opened, history  }) =>  {
+  const Layout = ({ onAuthModal, loginModal, children, onSideChange, opened, history, backdrop, onChangeBack  }) =>  {
   return (
     <Movierapper>
       <SideProfile opened={opened} sideProfileClicked={onSideChange}/>
@@ -23,7 +24,8 @@ import { withRouter } from 'react-router-dom';
       <MobileMenu/>
       <div className="content">
         {/* Authentication Modal */}
-        <Modal modalClose={onAuthModal} show={loginModal}>
+        <Backdrop clicked={onChangeBack} show={backdrop}/>
+        <Modal modalClose={onAuthModal}  show={loginModal}>
           <SignUp/>
         </Modal>
         <ErrorAlert/>
@@ -36,14 +38,16 @@ import { withRouter } from 'react-router-dom';
 const mapStateToProps = state => {
   return {
     loginModal : state.auth.modal,
-    opened : state.movie.openedSideProfile
+    opened     : state.movie.openedSideProfile,
+    backdrop   : state.movie.backdrop
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
     onAuthModal : () => dispatch(actions.loginModalHandler()),
-    onSideChange: () => dispatch(actions.sideChange())
+    onSideChange: () => dispatch(actions.sideChange()),
+    onChangeBack: () => dispatch(actions.changeBackdrop())
   }
 }
 

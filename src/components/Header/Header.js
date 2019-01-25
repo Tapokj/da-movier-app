@@ -5,6 +5,7 @@ import { NavLink } from 'react-router-dom';
 // Components
 import SignIn  from '../auth/SignIn/SignIn';
 import SignOut from '../auth/SignOut/SignOut';
+import Search  from './Search/Search';
 // Redux & actions
 import { connect }  from 'react-redux';
 import * as actions from '../../store/actions'
@@ -15,7 +16,8 @@ import './Header.sass';
 class Header extends Component {
 
   state = {
-    show: false
+    show: false,
+    searchBar : false
   }
 
   clickHandler = () => {
@@ -30,6 +32,12 @@ class Header extends Component {
         show : false
       })
     }
+  }
+
+  changeSearchDisplay = () => {
+    this.setState(prevState => {
+      return { searchBar : !prevState.searchBar }
+    })
   }
 
   render() {
@@ -49,11 +57,11 @@ class Header extends Component {
         <div className='header-actions'>
             <ul className='list-header'>
               <li><NavLink activeStyle={{color: '#51c3a5'}} to='/movies/page/1'>Фильмы</NavLink></li>
-              <li><p>Сериалы</p></li>
             </ul>
             <div className="right-panel">
               <div className='search'>
-                {!this.state.show ? <i className="fas fa-search"></i> : null}
+                <Search clickedSearch={this.state.searchBar} />
+                {!this.state.show ? <i onClick={this.changeSearchDisplay} className="fas fa-search"></i> : null}
               </div>
               <div className="login-header">
                 {!authUser ? (
