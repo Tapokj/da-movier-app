@@ -46,8 +46,8 @@ class DynamicList extends Component {
     return (
       <div className='dynamic-list col-md-8 container'>
         {data ? data.map(element => (
-          <div className='list-dyn'>
-            <Link key={element.id} to={`/movie/${element.id}`}>
+          <div key={element.id}  className='list-dyn'>
+            <Link to={`/movie/${element.id}`}>
               <ListDisplay
                 title={element.title}
                 image={element.poster_path}

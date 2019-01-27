@@ -51,10 +51,10 @@ class List extends Component {
       <div>
         <div className="container movie-wrapper">
           <div className="container-movie">
-            <div className="col-md-6">
+            <div className="movie-list-link">
               {loading ? listMovie : listMovie.slice(0, 10)}
             </div>
-            <div className="col-md-6 ml-5">
+            <div className="movie-list-link">
               {loading ? listMovie : listMovie.slice(10)}
             </div>
           </div>

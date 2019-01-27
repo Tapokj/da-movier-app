@@ -29,6 +29,7 @@ class SideProfile extends Component {
     if ( !this.props.updateList && this.props.userInfo !== prevProps.userInfo && this.props.userInfo !== null ) {
       // Code download user info to sidebar if component was updated
       if ( this.props.userInfo.lists ) {
+        // eslint-disable-next-line
         Object.values(this.props.userInfo.lists).map(element => {
           this.props.onLoadingLists(element, this.reqCook.get('ac_tok'))
         })
@@ -37,6 +38,7 @@ class SideProfile extends Component {
 
     else if (this.props.updateList === true && this.props.userInfo !== prevProps.userInfo) {
       if ( this.props.userInfo.lists ) {
+        // eslint-disable-next-line
         Object.values(this.props.userInfo.lists).map(element => {
           this.props.onLoadingLists(element, this.reqCook.get('ac_tok'), true)
         })
@@ -51,6 +53,7 @@ class SideProfile extends Component {
     if (this.state.movieList && this.props.personalList !== prevProps.personalList){
       for (let element in this.props.personalList){
         // Compare name of list in state with new list. It looks for matches and puth in the state
+        // eslint-disable-next-line
         if (this.props.personalList[element].name == this.state.movieList.name){
           this.setState({ movieList : this.props.personalList[element] })
         }
@@ -72,6 +75,7 @@ class SideProfile extends Component {
 
   viewListById = (e) => {
     for ( let element in this.props.personalList ){
+      // eslint-disable-next-line
       if ( this.props.personalList[element].id == e.target.id && !this.state.sideOpen ){
         this.setState({ movieList : this.props.personalList[element]})
       }
@@ -112,9 +116,10 @@ class SideProfile extends Component {
             </ul>
           </div>
           <SideProfileMovie clicked={this.clearState} data={this.state.movieList ? this.state.movieList.results : null}/>
-          <div className="button-add-current-movie">
+          {/* for next update project */}
+          {/* <div className="button-add-current-movie">
             <button className='btn-added'>Добавить фильм</button>
-          </div>
+          </div> */}
         </div>
       </div>
     );

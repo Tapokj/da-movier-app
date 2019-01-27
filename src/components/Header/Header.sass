@@ -34,7 +34,6 @@
     transition: .25s ease-in-out
 
 
-
   #burger-menu span:nth-child(1)
     top: 0px
 
@@ -66,16 +65,25 @@
     width: 0%
     left: 50%
 
+  .search-on-mobile
+    margin-left: 20px
+
+    input
+      z-index: 200
+      border-radius: 10px
+      border: 1px solid #ccc
+      padding: 5px
 
   .text-header
     a
-      color: black 
+      color: black
     a:hover
       text-decoration: none
       color: black
     h2
       font-family: 'Kaushan Script', cursive
       margin: 0
+
 
   .header-actions
     align-content: center
@@ -170,9 +178,13 @@
   #burger-menu
     display: none
 
-@media (max-width: 981px)
-  .header-action, .right-panel, .login-header, .list-header
+  .search-on-mobile
     display: none
+
+@media (max-width: 981px)
+  .header-action, .right-panel, .login-header, .list-header, .text-header
+    display: none
+
 
 @media (max-width: 731px)
   .header

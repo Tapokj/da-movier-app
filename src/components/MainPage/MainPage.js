@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 
 import { API_V3_KEY } from '../../API/API';
+
 import axios from 'axios';
-import { Link } from 'react-router-dom';
 
 import MainPageDisplay from './MainPageDisplay/MainPageDisplay';
 // styles
@@ -35,12 +35,12 @@ class MainPage extends Component {
   }
 
   render() {
-    const { top_rated } = this.state;
+    const { top_rated, popular, upcoming } = this.state;
     return (
       <div className='main-page container'>
-        <MainPageDisplay link='upcoming'  data={this.state.upcoming}  nameData='Предстоящие'/>
-        <MainPageDisplay link='top_rated' data={this.state.top_rated} nameData='Высокооцененные'/>
-        <MainPageDisplay link='popular' data={this.state.popular}   nameData='Популярные'/>
+        <MainPageDisplay link='upcoming'  data={upcoming}  nameData='Предстоящие'/>
+        <MainPageDisplay link='top_rated' data={top_rated} nameData='Высокооцененные'/>
+        <MainPageDisplay link='popular' data={popular}   nameData='Популярные'/>
       </div>
     );
   }

@@ -43,7 +43,7 @@ const reducer = ( state = initialState, action ) => {
     case actionsTypes.SUCC_LIST_DELETE:
       const newList = []
       for (let element in state.personalList){
-        if (state.personalList[element].id != action.list){
+        if (state.personalList[element].id !== action.list){
           newList.push(state.personalList[element])
         }
       }
@@ -67,7 +67,7 @@ const reducer = ( state = initialState, action ) => {
     case actionsTypes.LOADING_PERSONAL_LIST_UPDATE_SUCC:
         const newArr = [action.data];
         for ( let element in state.personalList ) {
-          if ( state.personalList[element].id != action.data.id ){
+          if ( state.personalList[element].id !== action.data.id ){
             newArr.push(state.personalList[element])
           }
         }
@@ -94,7 +94,7 @@ const reducer = ( state = initialState, action ) => {
     case actionsTypes.PERSONAL_LIST_UPDATE:
       const updList = [action.payload.data]
       for (let element in state.personalList){
-        if (state.personalList[element].id != action.payload.list){
+        if (state.personalList[element].id !== action.payload.list){
           updList.push(state.personalList[element])
         }
       }

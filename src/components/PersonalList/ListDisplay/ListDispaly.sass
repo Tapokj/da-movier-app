@@ -37,3 +37,48 @@
 
   img
     width: 120px
+
+@mixin media-styles($imgWidth, $paragrMargin)
+  .list-display
+
+    .list-item
+      display: flex
+      padding: 3px
+      flex-direction: column
+
+      img
+        width: $imgWidth
+
+      h3, p
+        position: relative
+        left: 10px
+        margin-top: $paragrMargin
+
+      p
+        font-size: 10px
+
+      .vote
+        font-size: 20px
+        left: 0
+
+@media (max-width: 900px)
+  .list-display
+    .list-item
+      h3
+        font-size: 12px
+
+      p
+        font-size: 10px
+
+      .vote
+        font-size: 15px
+        left: -15px      
+
+@media (max-width: 600px)
+  @include media-styles(200px, 10px)
+
+@media (max-width: 400px)
+  @include media-styles(200px, 10px)
+
+@media (max-width: 500px)
+  @include media-styles(200px, 10px)

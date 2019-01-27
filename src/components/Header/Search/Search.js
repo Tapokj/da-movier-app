@@ -47,7 +47,7 @@ class Search extends Component {
       <CSSTransition mountOnEnter unmountOnExit in={this.props.clickedSearch} classNames='search-input' timeout={300}>
         <div className='search-bar'>
           <form>
-            <input onClick={this.props.onChangeStateBackdrop} autocomplete='off' name='query' value={this.props.backdrop ? this.state.query : ''} onChange={this.changeSearchHandler} type="text" placeholder='Search'/>
+            <input onClick={this.props.onChangeStateBackdrop} autoComplete='off' name='query' value={this.props.backdrop ? this.state.query : ''} onChange={this.changeSearchHandler} type="text" placeholder='Search'/>
           </form>
           <div onClick={this.deletePanel} className='results-searching'>
             {this.state.data && this.props.backdrop ? this.state.data.slice(0, 4).map(element => {

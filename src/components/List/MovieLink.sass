@@ -1,6 +1,10 @@
+.movie-link-container
+  display: flex
+
 .movie-link
   box-shadow: 1px 10px 15px rgba(0, 0, 0, .2)
   margin-top: 30px
+
   img
     box-shadow: 1px 5px 10px rgba(0, 0, 0, .5)
     height: 250px
@@ -45,3 +49,17 @@
 
     .green_vote
       color: lighten(green, 10%)
+
+
+@media (max-width: 800px)
+  .movie-link
+    box-shadow: none
+
+    .movie-link-container
+      display: flex
+      flex-direction: column
+      align-items: center
+      img
+        height: 300px
+        width: 200px
+        align-self: center

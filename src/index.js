@@ -21,9 +21,11 @@ const rootReducer = combineReducers({
 // Devtools Redux Extension for Development Settings
 const composeEnhancers = process.env.NODE_ENV === 'development' ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ : null || compose;
 // Create Store
-const store = createStore(rootReducer, composeEnhancers(
-  applyMiddleware(thunk)
-))
+// const store = createStore(rootReducer, composeEnhancers(
+//   applyMiddleware(thunk)
+// ))
+
+const store = createStore(rootReducer, applyMiddleware(thunk))
 
 const app = (
   <Provider store={store}>

@@ -50,10 +50,14 @@ class Header extends Component {
            <span></span>
            <span></span>
            <span></span>
-      </div>
+       </div>
         <div className="text-header">
           <Link to='/'><h2>Da'Movier</h2></Link>
         </div>
+        <div className="search-on-mobile">
+          <Search clickedSearch={!this.state.searchBar} />
+        </div>
+        <div></div>
         <div className='header-actions'>
             <ul className='list-header'>
               <li><NavLink activeStyle={{color: '#51c3a5'}} to='/movies/page/1'>Фильмы</NavLink></li>

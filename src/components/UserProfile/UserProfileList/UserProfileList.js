@@ -40,6 +40,7 @@ class UserProfileList extends Component {
 
   viewListById = (e) => {
     for ( let element in this.props.lists ){
+      // eslint-disable-next-line
       if ( this.props.lists[element].id == e.target.id ){
         this.setState({
           movieList : this.props.lists[element],

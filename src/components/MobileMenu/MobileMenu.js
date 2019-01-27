@@ -5,6 +5,7 @@ import SignUp   from '../auth/SignUp/SignUp';
 import SignOut  from '../auth/SignOut/SignOut';
 import SignIn   from '../auth/SignIn/SignIn';
 import Backdrop from '../UI/Backdrop/Backdrop';
+import { Link } from 'react-router-dom';
 // Redux & actions
 import * as actions from '../../store/actions/index'
 import { connect }  from 'react-redux';
@@ -37,9 +38,9 @@ class MobileMenu extends Component {
       <div>
         <Backdrop clicked={onToggleMenu} show={isMenuOpen}/>
         <div className={`mobile-menu ${this.props.isMenuOpen ? 'open' : null}`}>
-          <h2>Da'Movier</h2>
+          <h2><Link to='/'>Da'Movier</Link></h2>
           <ul className='mobile-menu-list'>
-            <li><p>Фильмы</p></li>
+            <li><Link to='/movies/page/1'><p>Фильмы</p></Link></li>
             <li><p>Сериалы</p></li>
           </ul>
           <div className="action-buttons">

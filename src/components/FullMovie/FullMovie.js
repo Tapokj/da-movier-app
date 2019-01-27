@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
 
 // Components
-import Character from './Characters/Characters';
 import DataInfo  from './DataInfo/DataInfo';
-import Slider    from 'react-slick';
 import Spinner   from '../../components/UI/Spinner/Spinner'
 import Videos    from './Videos/Videos';
 import Links     from './Links/Links';
@@ -11,15 +9,13 @@ import AddToList from './AddToList/AddToList';
 
 import ChooseList from './ChooseList/ChooseList';
 import MoviesList from '../MoviesList/MoviesList';
+import SliderDisplay from './SliderDisplay/SliderDisplay';
 
 import Cookies    from 'universal-cookie';
 // Redux & actions
 import { connect }  from 'react-redux';
 import * as actions from '../../store/actions';
 import * as actionTypes from '../../store/actions/actionsTypes';
-
-
-
 
 import { classNames } from '../../Utillity/Utillity';
 
@@ -96,13 +92,7 @@ class FullMovie extends Component {
     const { moviePost, characters, staff, loading, error } = this.props;
     const { vote_average } = this.props.moviePost;
 
-    const settingsSlider = {
-      dots: true,
-      infinite: true,
-      speed: 600,
-      slidesToShow: 5,
-      slidesToScroll: 5
-    };
+
 
     let dataInfo   = <Spinner/>
     let charSlider = <Spinner/>
@@ -124,35 +114,8 @@ class FullMovie extends Component {
             modalClose={this.changeModalHandler}
             show={this.state.openModalAuthMovie}/>
           <div className="characters-slider">
-            <p>В главных ролях</p>
-            {/* Slider Component Which Display Images Of Characters  */}
-            <Slider {...settingsSlider}>
-              {characters.slice(0, 10).map(character => {
-                return (
-                  <Character
-                    key={character.cast_id}
-                    name={character.name}
-                    character={character.character}
-                    image={character.profile_path} />
-                )
-              })}
-              <div className='link-to-all-char'><p>Все актеры</p></div>
-            </Slider>
-          </div>
-          <div className="staff-slider">
-            <p>Команда</p>
-            <Slider {...settingsSlider}>
-              {staff.slice(0, 10).map(staff => {
-                return (
-                  <Character
-                    key={staff.credit_id}
-                    name={staff.name}
-                    character={staff.job}
-                    image={staff.profile_path} />
-                )
-              })}
-              <div className='link-to-all-char'><p>Вся команда</p></div>
-            </Slider>
+            <SliderDisplay data={characters} nameDisplay='В главных ролях' />
+            <SliderDisplay data={staff}      nameDisplay='Команда' />
           </div>
         </div>
       )
@@ -171,9 +134,7 @@ class FullMovie extends Component {
                 <p>Средняя оценка</p>
               </div>
               <div>
-                <AddToList
-                  clicked={!this.reqCook.get('ac_tok') ? this.changeModalHandler : this.addItemHandler}
-                />
+                <AddToList clicked={!this.reqCook.get('ac_tok') ? this.changeModalHandler : this.addItemHandler}/>
               </div>
             </div>
             <Links/>

@@ -9,7 +9,7 @@ import './MovieLink.sass';
 
 const MovieLink = ({ title, date, overview, vote, image }) => (
   <div className="movie-link">
-    <div className="row container">
+    <div className="movie-link-container container">
         <img src={`https://image.tmdb.org/t/p/w300${image}`} alt="Poster"/>
         <div className='movie-link-text'>
           <h4>{title}</h4>
